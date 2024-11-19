@@ -21,12 +21,7 @@ const slides = [
 let arrowRight = document.querySelector(".arrow_right");
 let arrowLeft = document.querySelector(".arrow_left");
 
-arrowRight.addEventListener("click", function () {
-	console.log("click droite")
-});
-arrowLeft.addEventListener("click", function () {
-	console.log("click gauche")
-});
+
 
 
 // Ajout des bullets points et récupération de l'image en cours de visionnage
@@ -50,3 +45,31 @@ for (let i = 0; i < slides.length; i++) {
 		newSelected.classList.add("dot_selected");
 	})
 }
+
+// Utilisation des flèches
+let activeImageIndex = 0;
+
+function changeSlide(newIndexImage) {
+	bannerImg.src = `./assets/images/slideshow/${slides[newIndexImage].image}`;
+	const newSelected = document.getElementById(`dot-${newIndexImage}`);
+	const previousSelected = document.querySelector(".dot_selected");
+	previousSelected.classList.remove("dot_selected");
+	newSelected.classList.add("dot_selected");
+	activeImageIndex = newIndexImage;
+	
+}
+
+arrowRight.addEventListener("click", function () {
+	console.log("click droite")
+	let newIndexImage = activeImageIndex + 1;
+	if (newIndexImage >= slides.length) {
+		newIndexImage = 0;
+	} 
+
+	changeSlide(newIndexImage)
+});
+
+arrowLeft.addEventListener("click", function () {
+	const currentImage = document.querySelector(".dot_selected");
+	currentImage.classList.remove("dot_selected");
+});
