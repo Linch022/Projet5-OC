@@ -21,7 +21,8 @@ const slides = [
 let arrowRight = document.querySelector(".arrow_right");
 let arrowLeft = document.querySelector(".arrow_left");
 
-
+// Récupération du <p>
+let imageText = document.querySelector("p");
 
 
 // Ajout des bullets points et récupération de l'image en cours de visionnage
@@ -43,6 +44,7 @@ for (let i = 0; i < slides.length; i++) {
 		const previousSelected = document.querySelector(".dot_selected");
 		previousSelected.classList.remove("dot_selected");
 		newSelected.classList.add("dot_selected");
+		imageText.innerHTML = slides[i].tagLine;
 	})
 }
 
@@ -55,12 +57,12 @@ function changeSlide(newIndexImage) {
 	const previousSelected = document.querySelector(".dot_selected");
 	previousSelected.classList.remove("dot_selected");
 	newSelected.classList.add("dot_selected");
+	imageText.innerHTML = slides[newIndexImage].tagLine;
 	activeImageIndex = newIndexImage;
 	
 }
 
 arrowRight.addEventListener("click", function () {
-	console.log("click droite")
 	let newIndexImage = activeImageIndex + 1;
 	if (newIndexImage >= slides.length) {
 		newIndexImage = 0;
@@ -70,6 +72,10 @@ arrowRight.addEventListener("click", function () {
 });
 
 arrowLeft.addEventListener("click", function () {
-	const currentImage = document.querySelector(".dot_selected");
-	currentImage.classList.remove("dot_selected");
+	let newIndexImage = activeImageIndex - 1;
+	if (newIndexImage < 0) {
+		newIndexImage = slides.length - 1;
+	} 
+
+	changeSlide(newIndexImage)
 });
