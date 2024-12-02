@@ -18,37 +18,12 @@ const slides = [
 ]
 
 // Récupération des flèches dans le DOM
-let arrowRight = document.querySelector(".arrow_right");
-let arrowLeft = document.querySelector(".arrow_left");
+let arrowRight = document.querySelector("#banner .arrow_right");
+let arrowLeft = document.querySelector("#banner .arrow_left");
 
 // Récupération du <p>
-let imageText = document.querySelector("p");
+let imageText = document.querySelector("#banner .banner-text");
 
-
-// Ajout des bullets points et récupération de l'image en cours de visionnage
-let dotsContainer = document.querySelector(".dots");
-let bannerImg = document.querySelector(".banner-img");
-
-for (let i = 0; i < slides.length; i++) {
-	let dot = document.createElement("span");
-	dot.classList.add("dot");
-	if(i === 0) {
-		dot.classList.add("dot_selected");	
-	}
-	dot.id = `dot-${i}`;
-	dotsContainer.appendChild(dot);
-
-	dot.addEventListener("click", function() {
-		bannerImg.src = `./assets/images/slideshow/${slides[i].image}`;
-		const newSelected = document.getElementById(`dot-${i}`);
-		const previousSelected = document.querySelector(".dot_selected");
-		previousSelected.classList.remove("dot_selected");
-		newSelected.classList.add("dot_selected");
-		imageText.innerHTML = slides[i].tagLine;
-	})
-}
-
-// Utilisation des flèches
 let activeImageIndex = 0;
 
 function changeSlide(newIndexImage) {
@@ -61,6 +36,26 @@ function changeSlide(newIndexImage) {
 	activeImageIndex = newIndexImage;
 	
 }
+
+// Ajout des bullets points et récupération de l'image en cours de visionnage
+let dotsContainer = document.querySelector("#banner .dots");
+let bannerImg = document.querySelector("#banner .banner-img");
+
+for (let i = 0; i < slides.length; i++) {
+	let dot = document.createElement("span");
+	dot.classList.add("dot");
+	if(i === activeImageIndex) {
+		dot.classList.add("dot_selected");	
+	}
+	dot.id = `dot-${i}`;
+	dotsContainer.appendChild(dot);
+
+	dot.addEventListener("click", function() {
+		changeSlide(i)
+	})
+}
+
+// Utilisation des flèches
 
 arrowRight.addEventListener("click", function () {
 	let newIndexImage = activeImageIndex + 1;
